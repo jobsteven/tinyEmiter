@@ -21,13 +21,11 @@ emiter.on('end',(end_data) => {
 // params are optional, if eventid is unspecified, it will clear all listeners. if elistener is unspecified, it will clear all listeners associated with this eventid
 
 emiter.off('eventid',elistener)
-
 emiter.off('start');
 
 // bonus, it's very usefull for debugging or handle events wholely.
 emiter.on('*', (data) => {
   console.log('all events will be passed into listener also.');
 })
-
 ```
 
