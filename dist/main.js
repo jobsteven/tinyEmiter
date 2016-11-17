@@ -18,7 +18,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //  Author: AlexWang
 //  Date: 2016-09-03 23:58:56
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2016-11-17 15:14:42
+//  Last Modified time: 2016-11-17 19:12:18
 //  Description: tinyEmiter
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -52,6 +52,8 @@ var Emiter = function () {
           }
           stub.length = 0;
         }
+      } else {
+        this.MAPS = {};
       }
     }
   }, {
