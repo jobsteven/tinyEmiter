@@ -1,6 +1,6 @@
 {
   "name": "tinyEmiter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a tiny emiter util, very easy to understand and use in browser and node.",
   "main": "dist/main.js",
   "directories": {
