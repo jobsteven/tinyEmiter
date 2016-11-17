@@ -4,7 +4,8 @@ a tiny emiter util, very easy to understand and use in browser and node.
 
 ## usage
 
-```
+```javascript
+
 import Emiter from 'tinyEmiter';
 
 let emiter = new Emiter();
