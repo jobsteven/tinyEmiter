@@ -1,0 +1,35 @@
+{
+  "name": "tinyEmiter",
+  "version": "1.0.0",
+  "description": "a tiny emiter util, very easy to understand and use in browser and node.",
+  "main": "dist/main.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexWang1987/tinyEmiter.git"
+  },
+  "keywords": [
+    "tinyEmiter"
+  ],
+  "author": "AlexWang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexWang1987/tinyEmiter/issues"
+  },
+  "homepage": "https://github.com/AlexWang1987/tinyEmiter#readme",
+  "dependencies": {},
+  "wbp": {
+    "project": "umd",
+    "entries": {
+      "main": "./main.js"
+    },
+    "source": "src/",
+    "build": "dist/"
+  }
+}

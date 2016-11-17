@@ -1,0 +1,15 @@
+# exclude all
+/*
+
+# project structure
+!/src/
+!/etc/
+!/docs/
+!/test/
+
+# project files
+!.gitignore
+!README.md
+!package.json
+!LICENSE
+!webpack.config.umd.js
