@@ -2,7 +2,7 @@
   "name": "tinyEmiter",
   "version": "1.0.4",
   "description": "a tiny emiter util, very easy to understand and use in browser and node.",
-  "main": "dist/main.js",
+  "main": "src/main.js",
   "directories": {
     "doc": "docs",
     "test": "test"
@@ -33,3 +33,4 @@
     "build": "dist/"
   }
 }
+
