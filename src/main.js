@@ -8,7 +8,7 @@
 //  Author: AlexWang
 //  Date: 2016-09-03 23:58:56
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2016-11-17 19:12:18
+//  Last Modified time: 2016-12-21 09:38:18
 //  Description: tinyEmiter
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -25,6 +25,13 @@ export default class Emiter {
       }
       stub.push(elistener);
     }
+  }
+  has(eid) {
+    if (eid) {
+      let stub = this.MAPS[eid];
+      return stub && stub.length;
+    }
+    return 0;
   }
   off(eid, elistener) {
     if (eid) {
