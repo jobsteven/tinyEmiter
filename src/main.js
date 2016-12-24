@@ -8,7 +8,7 @@
 //  Author: AlexWang
 //  Date: 2016-09-03 23:58:56
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2016-12-21 09:38:18
+//  Last Modified time: 2016-12-24 23:21:49
 //  Description: tinyEmiter
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -25,6 +25,10 @@ export default class Emiter {
       }
       stub.push(elistener);
     }
+  }
+  once(eid, elistener) {
+    elistener.__once = true;
+    this.on(eid, elistener);
   }
   has(eid) {
     if (eid) {
@@ -48,20 +52,30 @@ export default class Emiter {
   }
   emit(eid, data) {
     if (eid) {
+      let onceElisteners = [];
       //eid=* broadcast
       let asteriskStub = this.MAPS['*'];
       if (asteriskStub && asteriskStub.length) {
-        asteriskStub.forEach(function (elistener) {
+        asteriskStub.forEach((elistener) => {
           elistener(eid, data);
+          if (elistener['__once']) onceElisteners.push(elistener);
         })
       }
 
       // eid= normal
       let stub = this.MAPS[eid];
       if (stub && stub.length) {
-        stub.forEach(function (elistener) {
+        stub.forEach((elistener) => {
           elistener(data);
+          if (elistener['__once']) onceElisteners.push(elistener);
         });
+      }
+
+      // once
+      if (onceElisteners.length) {
+        onceElisteners.forEach((elistener) => {
+          this.off(eid, elistener);
+        })
       }
     }
   }

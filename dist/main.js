@@ -18,7 +18,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //  Author: AlexWang
 //  Date: 2016-09-03 23:58:56
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2016-12-21 09:38:18
+//  Last Modified time: 2016-12-24 23:21:49
 //  Description: tinyEmiter
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -40,6 +40,12 @@ var Emiter = function () {
         }
         stub.push(elistener);
       }
+    }
+  }, {
+    key: 'once',
+    value: function once(eid, elistener) {
+      elistener.__once = true;
+      this.on(eid, elistener);
     }
   }, {
     key: 'has',
@@ -68,22 +74,36 @@ var Emiter = function () {
   }, {
     key: 'emit',
     value: function emit(eid, data) {
-      if (eid) {
-        //eid=* broadcast
-        var asteriskStub = this.MAPS['*'];
-        if (asteriskStub && asteriskStub.length) {
-          asteriskStub.forEach(function (elistener) {
-            elistener(eid, data);
-          });
-        }
+      var _this = this;
 
-        // eid= normal
-        var stub = this.MAPS[eid];
-        if (stub && stub.length) {
-          stub.forEach(function (elistener) {
-            elistener(data);
-          });
-        }
+      if (eid) {
+        (function () {
+          var onceElisteners = [];
+          //eid=* broadcast
+          var asteriskStub = _this.MAPS['*'];
+          if (asteriskStub && asteriskStub.length) {
+            asteriskStub.forEach(function (elistener) {
+              elistener(eid, data);
+              if (elistener['__once']) onceElisteners.push(elistener);
+            });
+          }
+
+          // eid= normal
+          var stub = _this.MAPS[eid];
+          if (stub && stub.length) {
+            stub.forEach(function (elistener) {
+              elistener(data);
+              if (elistener['__once']) onceElisteners.push(elistener);
+            });
+          }
+
+          // once
+          if (onceElisteners.length) {
+            onceElisteners.forEach(function (elistener) {
+              _this.off(eid, elistener);
+            });
+          }
+        })();
       }
     }
   }]);
