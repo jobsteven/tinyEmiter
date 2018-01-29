@@ -8,7 +8,7 @@
 //  Author: AlexWang
 //  Date: 2016-09-03 23:58:56
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2016-12-24 23:21:49
+//  Last Modified time: 2018-01-29 15:15:22 by {{last_modified_by}}
 //  Description: tinyEmiter
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -17,29 +17,37 @@ export default class Emiter {
   constructor() {
     this.MAPS = {};
   }
-  on(eid, elistener) {
+
+  on(eid, elistener, context) {
+    if (context) { elistener.__this = context }
     if (eid && elistener) {
-      let stub = this.MAPS[eid];
+      const stub = this.MAPS[eid];
       if (!stub) {
-        return this.MAPS[eid] = [elistener];
+        this.MAPS[eid] = [elistener];
+        return
       }
+
       stub.push(elistener);
     }
   }
-  once(eid, elistener) {
+
+  once(eid, elistener, context) {
+    if (context) { elistener.__this = context }
     elistener.__once = true;
     this.on(eid, elistener);
   }
+
   has(eid) {
     if (eid) {
-      let stub = this.MAPS[eid];
+      const stub = this.MAPS[eid];
       return stub && stub.length;
     }
     return 0;
   }
+
   off(eid, elistener) {
     if (eid) {
-      let stub = this.MAPS[eid];
+      const stub = this.MAPS[eid];
       if (stub) {
         if (elistener) {
           return stub.splice(stub.indexOf(elistener), 1);
@@ -50,24 +58,25 @@ export default class Emiter {
       this.MAPS = {};
     }
   }
+
   emit(eid, data) {
     if (eid) {
-      let onceElisteners = [];
-      //eid=* broadcast
-      let asteriskStub = this.MAPS['*'];
+      const onceElisteners = [];
+      // eid=* broadcast
+      const asteriskStub = this.MAPS['*'];
       if (asteriskStub && asteriskStub.length) {
         asteriskStub.forEach((elistener) => {
-          elistener(eid, data);
-          if (elistener['__once']) onceElisteners.push(elistener);
+          elistener.call(elistener.__this, eid, data);
+          if (elistener.__once) onceElisteners.push(elistener);
         })
       }
 
       // eid= normal
-      let stub = this.MAPS[eid];
+      const stub = this.MAPS[eid];
       if (stub && stub.length) {
         stub.forEach((elistener) => {
-          elistener(data);
-          if (elistener['__once']) onceElisteners.push(elistener);
+          elistener.call(elistener.__this, data);
+          if (elistener.__once) onceElisteners.push(elistener);
         });
       }
 
@@ -80,4 +89,3 @@ export default class Emiter {
     }
   }
 }
-
