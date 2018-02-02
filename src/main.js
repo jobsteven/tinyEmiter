@@ -8,7 +8,7 @@
 //  Author: AlexWang
 //  Date: 2016-09-03 23:58:56
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2018-01-29 15:15:22 by {{last_modified_by}}
+//  Last Modified time: 2018-02-02 18:47:35 by {{last_modified_by}}
 //  Description: tinyEmiter
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -52,10 +52,12 @@ export default class Emiter {
         if (elistener) {
           return stub.splice(stub.indexOf(elistener), 1);
         }
+        console.warn(`**EVENT CODE ID is ${eid}, its all listeners will be removed.**`)
         stub.length = 0;
       }
     } else {
       this.MAPS = {};
+      console.warn('**EVENT CODE ID is empty, all listeners will be removed.**')
     }
   }
 
