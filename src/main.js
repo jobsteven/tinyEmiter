@@ -34,7 +34,7 @@ export default class Emiter {
       this.MAPS[eid] = stub
     }
 
-    if (Object.entries(this.MAPS[eid]).length === 1 && this.onoff) this.onoff(true)
+    if (Object.entries(this.MAPS).length === 1 && this.onoff) this.onoff(true)
   }
 
   off(eid, elistener) {
