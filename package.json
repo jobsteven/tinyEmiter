@@ -1,5 +1,5 @@
 {
-  "name": "tinyEmiter",
+  "name": "tinyemiter",
   "version": "1.1.10",
   "description": "a tiny emiter util, very easy to understand and use in browser and node.",
   "main": "dist/main.js",
