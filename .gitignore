@@ -6,7 +6,7 @@
 !/etc/
 !/docs/
 !/test/
-!/dist/
+dist/
 
 # project files
 !.gitignore
